@@ -18,6 +18,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY --chown=appuser:appuser src ./src
 
+# No Windows (Docker Desktop) as pastas chegam sem permissao de escrita;
+# a API precisa criar src/modules/intent_classifier/models ao baixar o modelo do W&B
+RUN chmod -R u+w /app/src
+
 ENV PYTHONPATH=/app
 
 EXPOSE 8000
